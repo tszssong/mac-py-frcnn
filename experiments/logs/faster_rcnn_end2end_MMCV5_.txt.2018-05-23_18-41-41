@@ -1,0 +1,7 @@
++ echo Logging output to experiments/logs/faster_rcnn_end2end_MMCV5_.txt.2018-05-23_18-41-41
+Logging output to experiments/logs/faster_rcnn_end2end_MMCV5_.txt.2018-05-23_18-41-41
++ ./tools/train_net.py --cpu --solver models/pascal_voc/MMCV5/faster_rcnn_end2end/solver.prototxt --weights data/imagenet_models/MMCV5.v2.caffemodel --imdb voc_2007_trainval --iters 70000 --cfg experiments/cfgs/faster_rcnn_end2end.yml
+usage: train_net.py [-h] [--gpu GPU_ID] [--solver SOLVER] [--iters MAX_ITERS]
+                    [--weights PRETRAINED_MODEL] [--cfg CFG_FILE]
+                    [--imdb IMDB_NAME] [--rand] [--set ...]
+train_net.py: error: unrecognized arguments: --cpu
