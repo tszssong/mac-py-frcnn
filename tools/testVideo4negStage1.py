@@ -43,6 +43,7 @@ if __name__ == '__main__':
     NMS_THRESH = 0.01
 
     fromDir = "//Volumes/song/testVideos/test4neg/momoLive/"
+    oriDir = "/Volumes/song/testVideos/test4neg/oriPic/"
     readFile = open(fromDir + "../momoLive4neg.txt", "r")
     retfilename = 'neg_'+caffemodel.split('.')[0].split('/')[-1] + '_' + str(CONF_THRESH).split('.')[-1]
     toDir = '/Users/momo/wkspace/caffe_space/detection/py-faster-rcnn/retTests/ret/' + retfilename
@@ -63,31 +64,31 @@ if __name__ == '__main__':
 
             numFrame += 1
             savename = filename.split()[0] + '_f' + str(numFrame) + '.jpg'
+            cv2.imwrite(oriDir+savename, im)
 
-            scores, boxes = im_detect(net, im)
+            # scores, boxes = im_detect(net, im)
 
-
-            dets = np.hstack((boxes, scores)).astype(np.float32)
-
-            keep = nms(dets, NMS_THRESH)
-            dets = dets[keep, :]
-            inds = np.where(dets[:, -1] >= CONF_THRESH)[0]
-
-            nhand = 0
-            for i in xrange(dets.shape[0]):
-                if (dets[i][4] > CONF_THRESH):
-                    nhand += 1
-
-            if nhand > 0:
-                writeFile.write(savename + ' ' + str(nhand) + ' ')
-                for i in xrange(dets.shape[0]):
-                    if (dets[i][4] > CONF_THRESH):
-                        writeFile.write('hand ' \
-                                        + str(int(dets[i][0])) + ' ' \
-                                        + str(int(dets[i][1])) + ' ' \
-                                        + str(int(dets[i][2])) + ' ' \
-                                        + str(int(dets[i][3])) + ' ')
-                writeFile.write('\n')
+            # dets = np.hstack((boxes, scores)).astype(np.float32)
+            #
+            # keep = nms(dets, NMS_THRESH)
+            # dets = dets[keep, :]
+            # inds = np.where(dets[:, -1] >= CONF_THRESH)[0]
+            #
+            # nhand = 0
+            # for i in xrange(dets.shape[0]):
+            #     if (dets[i][4] > CONF_THRESH):
+            #         nhand += 1
+            #
+            # if nhand > 0:
+            #     writeFile.write(savename + ' ' + str(nhand) + ' ')
+            #     for i in xrange(dets.shape[0]):
+            #         if (dets[i][4] > CONF_THRESH):
+            #             writeFile.write('hand ' \
+            #                             + str(int(dets[i][0])) + ' ' \
+            #                             + str(int(dets[i][1])) + ' ' \
+            #                             + str(int(dets[i][2])) + ' ' \
+            #                             + str(int(dets[i][3])) + ' ')
+            #     writeFile.write('\n')
 
             # for i in xrange(dets.shape[0]):
             #     if (dets[i][4] > CONF_THRESH):

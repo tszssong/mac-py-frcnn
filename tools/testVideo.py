@@ -69,12 +69,12 @@ def demo(net, im, nframe):
         # cv2.imshow("detections", im);
 
 if __name__ == '__main__':
-    cfg.TEST.HAS_RPN = True  # Use RPN for proposals
+    cfg.TEST.HAS_RPN = False  # Use RPN for proposals
 
-    prototxt = "/Users/momo/wkspace/caffe_space/detection/py-faster-rcnn/models/MMCV5S8/faster_rcnn_end2end/test.prototxt"
-    caffemodel = "/Users/momo/wkspace/caffe_space/detection/py-faster-rcnn/models/MMCV5S8/mmcv5stride8bn128_neg01_iter_100000.caffemodel"
-    # prototxt = "/Users/momo/Desktop/gesture/from113/MMCV5_stride16/test.prototxt"
-    # caffemodel = "/Users/momo/Desktop/sdk/momocv2_model/original_model/object_detect/mmcv5stride16_iter_5250000.caffemodel"
+    # prototxt = "/Users/momo/wkspace/caffe_space/detection/py-faster-rcnn/models/MMCV5S8/faster_rcnn_end2end/test.prototxt"
+    # caffemodel = "/Users/momo/wkspace/caffe_space/detection/py-faster-rcnn/models/MMCV5S8/mmcv5stride8bn128_neg01_iter_100000.caffemodel"
+    prototxt = "/Users/momo/Desktop/gesture/from113/MMCV5_stride16/test.prototxt"
+    caffemodel = "/Users/momo/Desktop/sdk/momocv2_model/original_model/object_detect/mmcv5stride16_iter_5250000.caffemodel"
 
     caffe.set_mode_cpu()
     
@@ -82,7 +82,7 @@ if __name__ == '__main__':
     print '\n\nLoaded network {:s}'.format(caffemodel)
     cfg.TEST.SCALES = [144,]
     cfg.TEST.MAX_SIZE = 256
-    cfg.DEDUP_BOXES = 1./8.
+    cfg.DEDUP_BOXES = 1./16.
     CONF_THRESH = 0.98
     NMS_THRESH = 0.01
 

@@ -1,0 +1,12 @@
++ echo Logging output to experiments/logs/faster_rcnn_end2end_MMCV5_.txt.2018-06-04_22-13-33
+Logging output to experiments/logs/faster_rcnn_end2end_MMCV5_.txt.2018-06-04_22-13-33
++ ./tools/train_net.py --gpu 1 --solver models/pascal_voc/MMCV5/faster_rcnn_end2end/solver.prototxt --weights data/imagenet_models/MMCV5.v2.caffemodel --imdb voc_2007_trainval --iters 70000 --cfg experiments/cfgs/faster_rcnn_end2end.yml
+Traceback (most recent call last):
+  File "./tools/train_net.py", line 15, in <module>
+    from datasets.factory import get_imdb
+  File "/nfs/zhengmeisong/wkspace/caffe_wk/py-faster-rcnn/tools/../lib/datasets/factory.py", line 12, in <module>
+    from datasets.pascal_voc import pascal_voc
+  File "/nfs/zhengmeisong/wkspace/caffe_wk/py-faster-rcnn/tools/../lib/datasets/pascal_voc.py", line 31
+    , 'heart', 'yearh', 'one', 'baoquan', 'five', 'bainian', 'zan')
+    ^
+SyntaxError: invalid syntax

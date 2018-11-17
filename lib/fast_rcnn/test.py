@@ -107,19 +107,16 @@ def _get_blobs(im, rois):
 
 def im_detect(net, im, boxes=None):
     """Detect object classes in an image given object proposals.
-
     Arguments:
         net (caffe.Net): Fast R-CNN network to use
         im (ndarray): color image to test (in BGR order)
         boxes (ndarray): R x 4 array of object proposals or None (for RPN)
-
     Returns:
         scores (ndarray): R x K array of object class scores (K includes
             background as object category 0)
         boxes (ndarray): R x (4*K) array of predicted bounding boxes
     """
     blobs, im_scales = _get_blobs(im, boxes)
-
     # When mapping from image ROIs to feature map ROIs, there's some aliasing
     # (some distinct image ROIs get mapped to the same feature ROI).
     # Here, we identify duplicate feature ROIs, so we only compute features

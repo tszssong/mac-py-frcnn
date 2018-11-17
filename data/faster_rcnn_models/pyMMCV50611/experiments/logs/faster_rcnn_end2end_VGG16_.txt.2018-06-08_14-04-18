@@ -1,0 +1,16 @@
++ echo Logging output to experiments/logs/faster_rcnn_end2end_VGG16_.txt.2018-06-08_14-04-18
+Logging output to experiments/logs/faster_rcnn_end2end_VGG16_.txt.2018-06-08_14-04-18
++ ./tools/train_net.py --gpu 2 --solver models/pascal_voc/VGG16/faster_rcnn_end2end/solver.prototxt --weights data/imagenet_models/VGG_ILSVRC_16_layers.caffemodel --imdb voc_2007_trainval --iters 70000 --cfg experiments/cfgs/faster_rcnn_end2end.yml
+Called with args:
+Namespace(cfg_file='experiments/cfgs/faster_rcnn_end2end.yml', gpu_id=2, imdb_name='voc_2007_trainval', max_iters=70000, pretrained_model='data/imagenet_models/VGG_ILSVRC_16_layers.caffemodel', randomize=False, set_cfgs=None, solver='models/pascal_voc/VGG16/faster_rcnn_end2end/solver.prototxt')
+Error under config key: TEST
+Traceback (most recent call last):
+  File "./tools/train_net.py", line 86, in <module>
+    cfg_from_file(args.cfg_file)
+  File "/nfs/zhengmeisong/wkspace/caffe_wk/py-faster-rcnn/tools/../lib/fast_rcnn/config.py", line 263, in cfg_from_file
+    _merge_a_into_b(yaml_cfg, __C)
+  File "/nfs/zhengmeisong/wkspace/caffe_wk/py-faster-rcnn/tools/../lib/fast_rcnn/config.py", line 250, in _merge_a_into_b
+    _merge_a_into_b(a[k], b[k])
+  File "/nfs/zhengmeisong/wkspace/caffe_wk/py-faster-rcnn/tools/../lib/fast_rcnn/config.py", line 245, in _merge_a_into_b
+    type(v), k))
+ValueError: Type mismatch (<type 'list'> vs. <type 'str'>) for config key: SCALES

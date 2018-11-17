@@ -1,0 +1,12 @@
++ echo Logging output to experiments/logs/faster_rcnn_end2end_VGG16_.txt.2018-06-08_11-04-06
+Logging output to experiments/logs/faster_rcnn_end2end_VGG16_.txt.2018-06-08_11-04-06
++ ./tools/train_net.py --gpu 0 --solver models/pascal_voc/VGG16/faster_rcnn_end2end/solver.prototxt --weights data/imagenet_models/VGG_ILSVRC_16_layers.caffemodel --imdb voc_2007_trainval --iters 70000 --cfg experiments/cfgs/faster_rcnn_end2end.yml
+Traceback (most recent call last):
+  File "./tools/train_net.py", line 15, in <module>
+    from datasets.factory import get_imdb
+  File "/nfs/zhengmeisong/wkspace/caffe_wk/py-faster-rcnn/tools/../lib/datasets/factory.py", line 12, in <module>
+    from datasets.pascal_voc import pascal_voc
+  File "/nfs/zhengmeisong/wkspace/caffe_wk/py-faster-rcnn/tools/../lib/datasets/pascal_voc.py", line 203
+    x1 = float(bbox.find('xmin').text)i# - 1
+                                      ^
+SyntaxError: invalid syntax
