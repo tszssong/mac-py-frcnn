@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 #!/usr/bin/env python
-import os, sys
-os.environ['GLOG_minloglevel'] = '3'
 import _init_paths
 from fast_rcnn.config import cfg
 from fast_rcnn.test import im_detect
@@ -10,6 +8,7 @@ from fast_rcnn.nms_wrapper import nms
 from utils.timer import Timer
 from iouutils import IOU_multi
 import numpy as np
+import os, sys
 caffe_root = './caffe-fast-rcnn/'
 os.chdir(caffe_root)
 sys.path.insert(0, os.path.join(caffe_root, 'python'))
@@ -38,11 +37,8 @@ def demo(net, im):
                           cls_scores[:, np.newaxis])).astype(np.float32)
         keep = nms(dets, NMS_THRESH)
         dets = dets[keep, :]
-        # if dets[0, -1] > CONF_THRESH:
-        #     print dets[0]
         for i in xrange(dets.shape[0]):
             if (dets[i][4] > CONF_THRESH):
-                # nhand += 1
                 handcls = np.append( handcls, CLASSES[cls_ind] )
                 handbox = np.append( handbox, [ dets[i][0], dets[i][1], dets[i][2], dets[i][3] ] )
                 handscore = np.append( handscore, [dets[i][4]] )
@@ -52,15 +48,12 @@ def demo(net, im):
         handcls = np.reshape(handcls, (-1,1))
         handbox = np.reshape(handbox, (-1, 4))
         handscore = np.reshape(handscore, (-1,1))
-        # print dets.shape[0], " handcls:", handcls, "handbox:\n", handbox, "score:", handscore
         return handcls, handbox, handscore
 
 if __name__ == '__main__':
     cfg.TEST.HAS_RPN = True     # Use RPN for proposals
     prototxt = "/Users/momo/Desktop/gesture/from113/MMCV5_stride16/test.prototxt"
-    # caffemodel = "/Users/momo/Desktop/sdk/momocv2_model/original_model/object_detect/mmcv5stride16_iter_5250000.caffemodel"
-    modelPath = "/Users/momo/wkspace/caffe_space/detection/py-faster-rcnn/output/faster_rcnn_end2end/voc_2007_trainval/"
-    caffemodel = "/Users/momo/wkspace/caffe_space/detection/py-faster-rcnn/output/faster_rcnn_end2end/voc_2007_trainval/mmcv5s16f66w_iter_510000.caffemodel"
+    caffemodel = "/Users/momo/Desktop/sdk/momocv2_model/original_model/object_detect/mmcv5stride16_iter_5250000.caffemodel"
     caffe.set_mode_cpu()
     net = caffe.Net(prototxt, caffemodel, caffe.TEST)
     print '\n\nLoaded network {:s}'.format(caffemodel)
@@ -107,7 +100,6 @@ if __name__ == '__main__':
             cv2.imwrite(toDir+picName, frame)
             writeFile.write(picName + ' ' + str(nhand))
             for i in xrange(0, nhand):
-                # writeFile.write(' hand %d %d %d %d'%(handbox[i*4],handbox[i*4+1],handbox[i*4+2],handbox[i*4+3]))
                 writeFile.write(' hand %d %d %d %d'%(handbox[i][0],handbox[i][1],handbox[i][2],handbox[i][3]))
             writeFile.write("\n")
             # cv2.imshow("capture", frame)

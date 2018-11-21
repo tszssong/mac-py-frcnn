@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 #!/usr/bin/env python
-
+import os, sys
+os.environ['GLOG_minloglevel'] = '3'
 import _init_paths
 from fast_rcnn.config import cfg
 from fast_rcnn.test import im_detect
@@ -10,7 +11,6 @@ from utils.timer import Timer
 import matplotlib.pyplot as plt
 import numpy as np
 import scipy.io as sio
-import os, sys
 # Make sure that caffe is on the python path:
 caffe_root = './caffe-fast-rcnn/'
 os.chdir(caffe_root)
