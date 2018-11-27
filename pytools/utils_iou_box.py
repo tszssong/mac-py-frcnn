@@ -161,8 +161,9 @@ def crop_image_multi(img, box, enlargeScale=2.0, param='black'):
     h = y2 - y1
     cx = x1 + w/2
     cy = y1 + h/2
-    
-    nw = w*enlargeScale
+   
+#    nw = w*enlargeScale
+    nw = enlargeScale*(w+h)/2.
     nh = nw
     
     nx1 = cx - nw / 2

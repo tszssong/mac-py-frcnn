@@ -16,10 +16,7 @@ os.chdir(caffe_root)
 sys.path.insert(0, os.path.join(caffe_root, 'python'))
 import caffe
 import cv2
-CONF_THRESH = 0.9
-NMS_THRESH = 0.01
-iouP = 0.3
-print "CONF_TH:", CONF_THRESH, "IOU:", iouP
+
 CLASSES = ('__background__','hand')
 gesturelists = ['bg', 'heart', 'yearh', 'one', 'baoquan', 'five', 'bainian', 'zan', 'fingerheart']
 errDict = {}
@@ -38,10 +35,13 @@ cls_model = "/Users/momo/wkspace/caffe_space/caffe/models/from113/8clsNother10w_
 cls_multi_ = float(sys.argv[1])
 clsInputSize_ = 64
 cls_mean_ = np.array([104, 117, 123])
-xml_path = "/Users/momo/wkspace/caffe_space/detection/py-faster-rcnn/data/VOCdevkit2007/VOC2007/gzAndroidTest/Annotations/"
-pic_path = "/Users/momo/wkspace/caffe_space/detection/py-faster-rcnn/data/VOCdevkit2007/VOC2007/gzAndroidTest/JPEGImages/"
+#xml_path = "/Users/momo/wkspace/caffe_space/detection/py-faster-rcnn/data/VOCdevkit2007/VOC2007/gzAndroidTest/Annotations/"
+#pic_path = "/Users/momo/wkspace/caffe_space/detection/py-faster-rcnn/data/VOCdevkit2007/VOC2007/gzAndroidTest/JPEGImages/"
+xml_path = "/Volumes/song/handgVGGali_27G/img_alifist-zan_rot270_zan-xml/"
+pic_path = "/Volumes/song/handgVGGali_27G/img_alifist-zan_rot270_zan-img/"
 testTxt = pic_path + "../test.txt"
-toBaseDir = wkdir + "output/"+cls_model.split('.')[0].split('/')[-1] + "_ERRORS/"
+testTxt = "/Users/momo/Downloads/gtName_img_alifist-zan_rot270_zan-xml.txt"
+toBaseDir = wkdir + "output/"+cls_model.split('.')[0].split('/')[-1] + "_ERRORS7/"
 if not os.path.isdir(toBaseDir):
     os.makedirs(toBaseDir)
 
@@ -60,12 +60,14 @@ if __name__ == '__main__':
     readFile = open(testTxt, 'r')
     filelists = readFile.readlines()
     numFrame = 0
+    n_error = 0
     n_pos_gt = 0
-    n_pos_re = 0
     n_pos_tp = 0
     for filename in filelists:
-        picName =  filename.strip() + '.jpg'
-        xmlName = xml_path + filename.strip()+'.xml'
+#        picName =  filename.strip() + '.jpg'
+#        xmlName = xml_path + filename.strip()+'.xml'
+        picName =  filename.strip().split('.')[0] + '.jpg'
+        xmlName = xml_path + filename.strip().split('.')[0] +'.xml'
         nhand_gt, handcls_gt, box_gt = get_gt_from_xml(xmlName)
 #        print nhand_gt, handcls_gt, box_gt
         for i in xrange(handcls_gt.shape[0]):
@@ -96,20 +98,21 @@ if __name__ == '__main__':
                 cls = np.where(prob==np.max(prob))[0][0]
                 re_dict[ gesturelists[cls] ] += 1
                 if not gesturelists[cls] == handcls_gt[i][0]:
-                    print cls, gesturelists[cls], handcls_gt[i][0], picName
-    
+#                    print cls, gesturelists[cls], handcls_gt[i][0], picName
+                    n_error+=1
                     errDict[handcls_gt[i][0]].append(picName)
                     cv2.imwrite(toBaseDir + handcls_gt[i][0] +'/' + str(cls)+'-' + picName, cls_img_copy)
                 else:
                     tp_dict[ gesturelists[cls] ] += 1
+                    n_pos_tp+=1
     
     
-        if numFrame%100 == 0:
-            print numFrame, "pics: gt=%d, re=%d, tp=%d"%(n_pos_gt, n_pos_re, n_pos_tp)
+#        if numFrame%100 == 0:
+#            print numFrame, "pics: gt=%d, tp=%d"%(n_pos_gt, n_pos_tp)
 
-print errDict
-for key in errDict:
-    f = open(toBaseDir + key + ".txt" , "w")
-    for i in len(errDict[k]):
-        f.write( errDict[k][i] )
+print n_error,"in", numFrame, "pics with ", n_pos_gt, "hands"
+for gsturename in errDict:
+    f = open(toBaseDir + gsturename + ".txt" , "w")
+    for filename in errDict[gsturename]:
+        f.write( filename + '\n' )
     f.close()

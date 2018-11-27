@@ -74,9 +74,9 @@ def compare(re,gt):
 gesturelist = ['hand']
 #gesturelist = ['five']
 #gesturelist = ['heart','yearh','one','baoquan','five','bainian','zan','fingerheart','ok','call','rock','big_v','fist']
-re = "ret/"+sys.argv[1]
+
 gt_path = "gt/gt_hand_0627all.txt"
-re_path = "ret/"+sys.argv[1]
+re_path = sys.argv[1]
 totalGT = 0
 totalRE = 0
 totalTP = 0

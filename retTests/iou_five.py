@@ -74,7 +74,7 @@ def compare(re,gt):
 gesturelist = ['hand']
 #gesturelist = ['five']
 #gesturelist = ['heart','yearh','one','baoquan','five','bainian','zan','fingerheart','ok','call','rock','big_v','fist']
-re = "ret/"+sys.argv[1]
+
 gt_path = "gt/gt_0627-5hand.txt"
 re_path = "ret/"+sys.argv[1]
 totalGT = 0
@@ -94,7 +94,7 @@ for gname in gesturelist:
             tmp = line.strip(' \n').split(' ')
             re_list.append(tmp[0])
             re_dict[tmp[0]] = []
-            re_dict[tmp[0]].append(int(tmp[1]))#gesture数量
+            re_dict[tmp[0]].append(int(tmp[1])) #gesture数量
             i = 2
             while i<len(tmp):
                 if tmp[i] == gname:

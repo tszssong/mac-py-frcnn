@@ -74,7 +74,7 @@ if __name__ == '__main__':
     if not os.path.isdir(toDir):
         os.makedirs(toDir)
     writeFile = open(toDir+"/../ret.txt", "w")
-    readFile = open(fromDir + "../0627_5_1258.txt", "r")
+    readFile = open(fromDir + "../0627_5_10.txt", "r")
     filelists = readFile.readlines()
     numFrame = 0
     n_pos_gt = 0

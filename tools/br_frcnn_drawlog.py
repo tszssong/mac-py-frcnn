@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import re
 
-with open('experiments/logs/logs/faster_rcnn_end2end_MMCV5BNS8_.txt.2018-11-14_14-15-56') as f:
+with open('experiments/logs/faster_rcnn_end2end_MMCV5BNS16_.txt.2018-11-21_23-20-27') as f:
     data = f.read()
 #    print data
 
